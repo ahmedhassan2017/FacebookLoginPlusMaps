@@ -135,9 +135,9 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                     LatLng NewLocation = new LatLng(latitude, longitude);
                     // Already two locations
                     if (MarkerPoints.size() > 1) {
-                        LatLng myloc = MarkerPoints.get(0);
-                        MarkerPoints.clear();
-                        MarkerPoints.add(myloc);
+//                        LatLng myloc = MarkerPoints.get(0);
+//                        MarkerPoints.clear();
+//                        MarkerPoints.add(myloc);
                         mMap.clear();
                     }
 
