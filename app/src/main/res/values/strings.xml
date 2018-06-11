@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">FacebookLoginPlusMaps</string>
+
+    <!--Facebook-->
+    <string name="facebook_app_id">2033090360277703</string>
+    <string name="fb_login_protocol_scheme">fb2033090360277703</string>
+
+    <string name="open_location_settings">open location settings</string>
+    <string name="gps_network_not_enabled">gps network not enabled</string>
+    <string name="Cancel">Cancel</string>
+
+</resources>
