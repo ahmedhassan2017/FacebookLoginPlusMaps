@@ -8,5 +8,15 @@
     <string name="open_location_settings">open location settings</string>
     <string name="gps_network_not_enabled">gps network not enabled</string>
     <string name="Cancel">Cancel</string>
+    
+    
+    
+    
+    <string name="Profile_name">Profile name</string>
+    <string name="Latitude">latitude :</string>
+    <string name="longitude">longitude :</string>
+    <string name="Locate">Locate</string>
+    <string name="Map">Map</string>
+
 
 </resources>

@@ -12,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -115,7 +116,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                 return;
             }
             mMap.setMyLocationEnabled(true);
-            mMap.getUiSettings().setMyLocationButtonEnabled(false);
+//            mMap.getUiSettings().setMyLocationButtonEnabled(false);
 
         }
 
@@ -125,74 +126,67 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         locate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (TextUtils.isEmpty((Lat.getText())) || TextUtils.isEmpty(Lon.getText())) {
+                    Toast.makeText(MapActivity.this, "Please, enter Latitude and Longitude ", Toast.LENGTH_SHORT).show();
+                }else {
+                    Double latitude = Double.parseDouble(Lat.getText().toString());
+                    Double longitude = Double.parseDouble(Lon.getText().toString());
 
-                Double latitude = Double.parseDouble(Lat.getText().toString());
-                Double longitude = Double.parseDouble(Lon.getText().toString());
+                    LatLng NewLocation = new LatLng(latitude, longitude);
+                    // Already two locations
+                    if (MarkerPoints.size() > 1) {
+                        LatLng myloc = MarkerPoints.get(0);
+                        MarkerPoints.clear();
+                        MarkerPoints.add(myloc);
+                        mMap.clear();
+                    }
 
-                LatLng NewLocation = new LatLng(latitude, longitude);
-                // Already two locations
-                if (MarkerPoints.size() > 1) {
-                    LatLng myloc =MarkerPoints.get(0);
-                    MarkerPoints.clear();
-                    MarkerPoints.add(myloc);
-                    mMap.clear();
-                }
+                    // Adding new item to the ArrayList
+                    MarkerPoints.add(NewLocation);
 
-                // Adding new item to the ArrayList
-                MarkerPoints.add(NewLocation);
+                    // Creating MarkerOptions
+                    MarkerOptions options = new MarkerOptions();
 
-                // Creating MarkerOptions
-                MarkerOptions options = new MarkerOptions();
-
-                // Setting the position of the marker
-                options.position(NewLocation);
-
-
-
-                 if (MarkerPoints.size() >= 2) {
-                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-                }
+                    // Setting the position of the marker
+                    options.position(NewLocation);
 
 
-                // Add new marker to the Google Map Android API V2
-                mMap.addMarker(options);
+                    if (MarkerPoints.size() >= 2) {
+                        options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                    }
 
-                // Checks, whether start and end locations are captured
-                if (MarkerPoints.size() >= 2) {
-                    LatLng origin = MarkerPoints.get(0);
-                    LatLng dest = MarkerPoints.get(MarkerPoints.size()-1);
 
-                    // Getting URL to the Google Directions API
-                    String url = getUrl(origin, dest);
-                    Log.d("onMapClick", url.toString());
-                    FetchUrl FetchUrl = new FetchUrl();
+                    // Add new marker to the Google Map Android API V2
+                    mMap.addMarker(options);
 
-                    // Start downloading json data from Google Directions API
-                    FetchUrl.execute(url);
-                    //move map camera
+                    // Checks, whether start and end locations are captured
+                    if (MarkerPoints.size() >= 2) {
+                        LatLng origin = MarkerPoints.get(0);
+                        LatLng dest = MarkerPoints.get(MarkerPoints.size() - 1);
+
+                        // Getting URL to the Google Directions API
+                        String url = getUrl(origin, dest);
+                        Log.d("onMapClick", url.toString());
+                        FetchUrl FetchUrl = new FetchUrl();
+
+                        // Start downloading json data from Google Directions API
+                        FetchUrl.execute(url);
+                        //move map camera
 //                    mMap.moveCamera(CameraUpdateFactory.newLatLng(origin));
 //                    mMap.animateCamera(CameraUpdateFactory.zoomTo(DEFAULT_ZOOM));
-                }
+                    }
 
 
 //                googleMap.clear();
 //
 //                mMap.addMarker(new MarkerOptions().position(NewLocation).title("Marker in Position " + latitude + " " + longitude));
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(NewLocation));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(NewLocation));
 
+                }
             }
         });
 
 
-        /**
-         * Manipulates the map once available.  up ↑
-         * This callback is triggered when the map is ready to be used.
-         * This is where we can add markers or lines, add listeners or move the camera. In this case,
-         * we just add a marker near Sydney, Australia.
-         * If Google Play services is not installed on the device, the user will be prompted to install
-         * it inside the SupportMapFragment. This method will only be triggered once the user has
-         * installed Google Play services and returned to the app.
-         */
     }
 
 

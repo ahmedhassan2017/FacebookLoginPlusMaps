@@ -4,14 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/Blue"
+    android:gravity="center"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/name"
-        android:layout_gravity="center_horizontal" />
+
 
 
 
@@ -20,15 +18,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp" />
+         />
 
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/goto_map"
-        android:text="Go to Map"
+        android:text="@string/Map"
+        android:textColor="@color/Blue"
+        android:background="@drawable/oval_shape"
+        android:layout_marginTop="30dp"
+
         android:layout_gravity="center_horizontal"
         />
 </LinearLayout>

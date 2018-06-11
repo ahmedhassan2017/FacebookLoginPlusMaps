@@ -7,20 +7,23 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:background="@color/Blue"
         >
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:id="@+id/profile_pic"
+            android:layout_marginStart="10dp"
 
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/name"
-            android:text="The name"
-            android:layout_marginLeft="5dp"
+            android:textColor="@color/white"
+            android:text="@string/Profile_name"
+            android:textSize="18sp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"/>
 
     </LinearLayout>
@@ -36,10 +39,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="latitude :"/>
+        android:text="@string/Latitude"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="numberDecimal|numberSigned"
         android:id="@+id/latitude" />
     </LinearLayout>
 <LinearLayout
@@ -49,10 +53,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="longitude :" />
+        android:text="@string/longitude" />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="numberDecimal|numberSigned"
         android:id="@+id/longitude"/>
 </LinearLayout>
 </LinearLayout>
@@ -62,9 +67,13 @@
 
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Locate"
+            android:layout_height="22dp"
+            android:text="@string/Locate"
+            android:elevation="6dp"
+            android:textColor="@color/white"
+            android:background="@drawable/rectangel_shape"
             android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="5dp"
             android:id="@+id/locateButton"/>
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"

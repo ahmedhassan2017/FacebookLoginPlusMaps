@@ -11,8 +11,8 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -35,9 +35,9 @@ public class MainActivity extends AppCompatActivity {
     private static final String EMAIL = "email";
     private static final String PROFILE = "public_profile";
     LoginButton loginButton;
+    Button goMap;
     CallbackManager callbackManager;
-    TextView Name;
-    ImageView profilePic;
+
 
     // map
     private static final String TAG = "MainActivity";
@@ -55,23 +55,10 @@ public class MainActivity extends AppCompatActivity {
             showGPSSettingAlert(MainActivity.this);
 
 
-        // to get key hashes
-//        try {
-//            PackageInfo info = getPackageManager().getPackageInfo(
-//                    "app.sunshine.com.example.android.facebookloginplusmaps",
-//                    PackageManager.GET_SIGNATURES);
-//            for (android.content.pm.Signature signature : info.signatures) {
-//                MessageDigest md = MessageDigest.getInstance("SHA");
-//                md.update(signature.toByteArray());
-//                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-//            }
-//        } catch (PackageManager.NameNotFoundException e) {
-//
-//        } catch (NoSuchAlgorithmException e) {
-//
-//        }
+
 
         loginButton = findViewById(R.id.login_button);
+        goMap=findViewById(R.id.goto_map);
 
 
         if (!isNetworkConnected()) {
@@ -79,15 +66,26 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+        goMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent =new Intent(MainActivity.this,MapActivity.class);
+                startActivity(intent);
+            }
+        });
+
         // permission to read email and profile information
         loginButton.setReadPermissions(EMAIL, PROFILE);
 //        loginButton.setReadPermissions(Arrays.asList(EMAIL));
 
 // checking if user is logged in or not
-        AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        final boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
+//        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+//        final boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
+
 
         callbackManager = CallbackManager.Factory.create();
+
+
 
 
         // Callback registration
@@ -167,13 +165,11 @@ public class MainActivity extends AppCompatActivity {
     void displayUserInfo(JSONObject object) {
 
 
-        String email = null;
         String firstName = null;
         String lastName = null;
         String picPath = null;
         String id = null;
         try {
-            email = object.getString("email");
             firstName = object.getString("first_name");
             lastName = object.getString("last_name");
             id = object.getString("id");
